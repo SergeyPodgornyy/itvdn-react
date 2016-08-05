@@ -1,0 +1,38 @@
+body {
+    background: #eee;
+    color: #555;
+}
+
+hr {
+    clear: both;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+textarea {
+    resize: vertical;
+}
+
+#article-preview {
+    border: 2px solid #d4d4d4;
+    border-radius: 25px;
+}
+
+.preview-hint {
+    font-style: italic;
+    font-size: 1em;
+}
+
+.preview-author {
+    margin: 0 auto;
+    font-size: 1.2em;
+    font-style: italic;
+    color: #999;
+}
+
+.preview-body {
+    font-size: 1.2em;
+    margin: 50px 20px 20px;
+}

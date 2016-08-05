@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id='content'></div>
+
+    <script type="text/babel">
+        let Preview = React.createClass({
+            render: function() {
+                return (
+                    <div className="container" id="article-preview">
+                        <p className="text-right preview-hint">Preview</p>
+                        <h1 className="text-center preview-title">
+                            {this.props.title}
+                        </h1>
+                        <h3 className="text-center preview-author">
+                            {this.props.author.length ? "by " + this.props.author : ""}
+                        </h3>
+                        <p className="preview-body"> {this.props.body} </p>
+                    </div>
+                );
+            }
+        });
+
+        let ArticlesBlock = React.createClass({
+            render: function() {
+                return ();
+            }
+        });
+
+        let App = React.createClass({
+            getInitialState: function() {
+                return {
+                    title: 'Article!',
+                    author: '',
+                    body: ''
+                };
+            },
+
+            handleTitleChange: function(event) {
+                this.setState({title: event.target.value ? event.target.value : 'Article!'});
+            },
+            handleAuthorChange: function(event) {
+                this.setState({author: event.target.value});
+            },
+            handleBodyChange: function(event) {
+                this.setState({body: event.target.value});
+            },
+
+            render: function() {
+                return (
+                    <div className="container">
+                        <h3 className="text-center">Create an article</h3>
+                        <p className="col-md-6 form-group">
+                            <label htmlFor="title" className="control-label">Article title</label>
+                            <input type="text" id="title" name="title" className="form-control" maxLength="64" onChange={this.handleTitleChange} />
+                        </p>
+                        <p className="col-md-6 form-group">
+                            <label htmlFor="author" className="control-label">Article author</label>
+                            <input type="text" id="author" name="author" className="form-control" maxLength="64" onChange={this.handleAuthorChange} />
+                        </p>
+                        <p className="col-xs-12">
+                            <label htmlFor="body" className="control-label">Article body</label>
+                            <textarea id="body" name="body" className="form-control" maxLength="512" onChange={this.handleBodyChange} />
+                        </p>
+                        <hr />
+                        <Preview 
+                            title={this.state.title}
+                            author={this.state.author}
+                            body={this.state.body}
+                        />
+                        <ArticlesBlock />
+                    </div>
+                );
+            }
+        });
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById("content")
+        );
+    </script>
+</body>
+</html>
