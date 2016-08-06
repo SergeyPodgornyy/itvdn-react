@@ -23,6 +23,7 @@ textarea {
 .preview-hint {
     font-style: italic;
     font-size: 1em;
+    margin-right: 30px;
 }
 
 .preview-author {
@@ -35,4 +36,25 @@ textarea {
 .preview-body {
     font-size: 1.2em;
     margin: 50px 20px 20px;
+}
+
+#articles {
+    margin-top: 30px;
+    background: #fff;
+    border: 2px solid #d4d4d4;
+    border-radius: 10px;
+}
+
+.article {
+    background: #bac2ff;
+    margin: 20px 15px;
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+
+.article-author {
+    margin-left: 15px;
+    font-size: 0.8em;
+    font-style: italic;
+    color: #999;
 }

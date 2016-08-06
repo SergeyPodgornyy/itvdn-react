@@ -14,9 +14,9 @@
 
     <script type="text/babel">
         let Preview = React.createClass({
-            render: function() {
+            render: function () {
                 return (
-                    <div className="container" id="article-preview">
+                    <div id="article-preview">
                         <p className="text-right preview-hint">Preview</p>
                         <h1 className="text-center preview-title">
                             {this.props.title}
@@ -32,30 +32,60 @@
 
         let ArticlesBlock = React.createClass({
             render: function() {
-                return ();
+                let data = this.props.data;
+                return (
+                    <div className="article">
+                        <h3 className="article-head text-center">
+                            <span className="article-title">
+                                {data.title}
+                            </span>
+                            <span className="article-author">
+                                {data.author.length ? "published by " + data.author : ""}
+                            </span>
+                        </h3>
+                        <p className="article-body">{data.body}</p>
+                    </div>
+                );
             }
         });
 
         let App = React.createClass({
-            getInitialState: function() {
+            getInitialState: function () {
                 return {
                     title: 'Article!',
                     author: '',
-                    body: ''
+                    body: '',
+                    articles: []
                 };
             },
 
-            handleTitleChange: function(event) {
+            handleTitleChange: function (event) {
                 this.setState({title: event.target.value ? event.target.value : 'Article!'});
             },
-            handleAuthorChange: function(event) {
+            handleAuthorChange: function (event) {
                 this.setState({author: event.target.value});
             },
-            handleBodyChange: function(event) {
+            handleBodyChange: function (event) {
                 this.setState({body: event.target.value});
             },
 
-            render: function() {
+            publishArticle: function (event) {
+                this.state.articles.push({
+                    title: this.state.title,
+                    author: this.state.author,
+                    body: this.state.body
+                });
+                this.setState({
+                    title: "Article!",
+                    author: "",
+                    body: ""
+                });
+                document.getElementById("title").value='';
+                document.getElementById("author").value='';
+                document.getElementById("body").value='';
+            },
+
+            render: function () {
                 return (
                     <div className="container">
                         <h3 className="text-center">Create an article</h3>
@@ -71,13 +101,22 @@
                             <label htmlFor="body" className="control-label">Article body</label>
                             <textarea id="body" name="body" className="form-control" maxLength="512" onChange={this.handleBodyChange} />
                         </p>
+                        <button className="btn btn-primary col-xs-4 col-xs-offset-4" onClick={this.publishArticle}>Publish</button>
                         <hr />
-                        <Preview 
+                        <Preview
                             title={this.state.title}
                             author={this.state.author}
                             body={this.state.body}
                         />
-                        <ArticlesBlock />
+                        <hr />
+                        <h1>Articles</h1>
+                        <div id="articles">
+                            {
+                                this.state.articles.map(function (article, index) {
+                                    return <ArticlesBlock key={index} data={article} />;
+                                })
+                            }
+                        </div>
                     </div>
                 );
             }
